@@ -1,7 +1,8 @@
 
 #ifndef PS_INTERNAL_POSTOFFICE_H_
 #define PS_INTERNAL_POSTOFFICE_H_
-#include "ps/internal/env.h"
+#include "env.h"
+
 class Postoffice
 {
 public:
@@ -10,7 +11,9 @@ public:
    */
   static Postoffice *Get()
   {
+    std::cout<<"=======222========"<<std::endl;
     static Postoffice e;
+    std::cout<<"=======222 end========"<<std::endl;
     return &e;
   }
 

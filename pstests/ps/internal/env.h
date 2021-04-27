@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include <memory>
 #include <string>
-
+#include <iostream>
 
 /**
  * \brief Environment configurations
@@ -24,6 +24,7 @@ class Environment {
    * \brief return a shared ptr of the singleton instance
    */
   static inline std::shared_ptr<Environment> _GetSharedRef() {
+    std::cout<<"=======444444========"<<std::endl;
     return _GetSharedRef(nullptr);
   }
   /**
@@ -50,12 +51,15 @@ class Environment {
 
  private:
   explicit Environment(const std::unordered_map<std::string, std::string>* envs) {
+    std::cout<<"=======66666========"<<std::endl;
     if (envs) kvs = *envs;
   }
 
   static std::shared_ptr<Environment> _GetSharedRef(
       const std::unordered_map<std::string, std::string>* envs) {
+        std::cout<<"=======55555========"<<std::endl;
     static std::shared_ptr<Environment> inst_ptr(new Environment(envs));
+    std::cout<<"=======55555 end========"<<std::endl;
     return inst_ptr;
   }
 
