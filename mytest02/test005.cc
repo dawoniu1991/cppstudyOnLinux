@@ -1,19 +1,19 @@
+#include <iostream>
+#include <thread>
 #include <zmq.h>
 #include <stdio.h>
 #include <unistd.h>
 #include <string.h>
-#include <iostream>
 using namespace std;
 
-int main (void)
-{
+
+void say() {
+   cout << "this is say function print" << endl;
     void *context = zmq_init(1);
- 
     // 与客户端通信的套接字
     void *responder = zmq_socket(context, ZMQ_REP);
-    zmq_bind(responder, "tcp://*:5555");
-    printf("收到 Hello\n");
-    while (1) {
+    zmq_bind(responder, "tcp://*:7777");
+    printf("收到 Hello~~\n");
         // 等待客户端请求
         zmq_msg_t request;
         zmq_msg_init(&request);
@@ -44,20 +44,19 @@ int main (void)
         }
 
         zmq_msg_close(&request);
-         
-        // 做些“处理”
-        // sleep(1);
- 
-        // // 返回应答
-        // zmq_msg_t reply;
-        // zmq_msg_init_size(&reply, 5);
-        // memcpy(zmq_msg_data(&reply), "World", 5);
-        // zmq_send(responder, &reply, 0);
-        // zmq_msg_close(&reply);
-    }
-    std::cout<< "end"<<std::endl;
-    // 程序不会运行到这里，以下只是演示我们应该如何结束
-    zmq_close (responder);
-    zmq_term (context);
-    return 0;
-}
+    zmq_close(responder);
+    zmq_term(context);
+    std::cout<< "server end======"<<std::endl;
+}     
+
+  int main() {
+    //   thread t(say);
+     std::unique_ptr<std::thread> receiver_thread_ =   std::unique_ptr<std::thread>(new std::thread(say));
+      for(int i=0;i<5;i++){
+            cout << "main hanshu" << endl;
+      }
+    //   t.join();      
+    receiver_thread_->join();                                                                                                                                                                                                                  
+    cout << "main end========" << endl;
+      return 0;
+  }     

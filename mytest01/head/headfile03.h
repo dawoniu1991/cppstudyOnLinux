@@ -13,7 +13,7 @@ public:
                     << "] " << file << ":"
                     << line << ": ";
     }
-    std::ostringstream log_stream_;
+     std::ostringstream log_stream_;
     char buffer_[9];
 
     const char *HumanDate()

@@ -5,37 +5,37 @@
 using namespace std;
 #pragma comment(lib, "libzmq.lib")
  
-
-  void my_free (void *data, void *hint)
-   {
-      free(data);
-      cout<<"free======"<<endl; 
-    //   cout<<"hint======"<<*hint<<endl; 
-   }
-
-
+// int _tmain(int argc, _TCHAR* argv[])
 int main(int argc, char *argv[])
 {
 	printf("Connecting to hello world server…\n");
 	void *context = zmq_ctx_new();
 	void *requester = zmq_socket(context, ZMQ_REQ);
-	zmq_connect(requester, "tcp://localhost:5555");
+	zmq_connect(requester, "tcp://localhost:7777");
     
-  
-   void *data = malloc(6);
-   memcpy(data, "ABCDEF", 6); 
-   zmq_msg_t msg;
-   int rc = zmq_msg_init_data(&msg, data, 6, my_free, NULL);
-   cout<<"rc======"<<rc<<endl; 
-   rc = zmq_msg_send(&msg, requester, 0);
+    // int data_size=6;
+    // string str1="hello";
+    // zmq_msg_t data_msg;
+    // zmq_msg_init_data(&data_msg, &str1, 6, NULL, NULL);
+
+    // while (true) {
+    //     if (zmq_msg_send(&data_msg, requester, 0) == data_size) break;
+    // }
+ 
+    zmq_msg_t msg;
+    int rc = zmq_msg_init_size(&msg, 6);
+    cout<<"rc=="<<rc<<endl; 
+    /* Fill in message content with 'AAAAAA' */
+    memset(zmq_msg_data(&msg), 'A', 6);
+    /* Send the message to the socket */
+    rc = zmq_msg_send(&msg, requester, 0);
     cout<<"rc======"<<rc<<endl; 
 
-    cout<<"client======"<<endl; 
+    
 	zmq_close(requester);
-    cout<<"zmq_close======"<<endl; 
 	zmq_ctx_destroy(context);
-    cout<<"zmq_ctx_destroy======"<<endl; 
-    cout<<"good job======"<<endl; 
+    cout<<"client end======"<<endl; 
+ 
 	return 0;
 }
 

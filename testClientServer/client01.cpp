@@ -31,9 +31,10 @@ int main(int argc, char *argv[])
     rc = zmq_msg_send(&msg, requester, 0);
     cout<<"rc======"<<rc<<endl; 
 
-    cout<<"client======"<<endl; 
+    
 	zmq_close(requester);
 	zmq_ctx_destroy(context);
+    cout<<"client end======"<<endl; 
  
 	return 0;
 }
