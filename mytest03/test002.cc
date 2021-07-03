@@ -49,7 +49,8 @@ void display(Line obj)
 int main( )
 {
    Line line(10);
-   Line line2 = line;
+   Line line2(line);
+//    Line line2 = line;
  
 //    display(line);
  
