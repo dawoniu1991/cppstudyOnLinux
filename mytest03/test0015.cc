@@ -51,6 +51,10 @@ class SArray {
   }
 
   inline V* data() const { return ptr_.get(); }
+  inline V back() const {  return data()[size_-1]; }
+  inline V front() const { return data()[0]; }
+  inline size_t size() const { return size_; }
+  inline size_t capacity() const { return capacity_; }
 
 private:
   size_t size_ = 0;
@@ -58,17 +62,24 @@ private:
   std::shared_ptr<V> ptr_;
 };
 
-
 int main(){
   using Key = uint64_t;
   int num = 5;
   std::vector<Key> keys(num);
-
   for (int i = 0; i < num; ++i) {
-    keys[i] = i;
+    keys[i] = i+10;
   }
+   std::cout<<"main==="<<keys[0]<<std::endl;
+   std::cout<<"main==="<<&(keys[0])<<std::endl;
+//    std::cout<<"main==="<<(keys+1)<<std::endl;
+//    std::cout<<"main==="<<*(keys+1)<<std::endl;
     std::cout<<"main======begin"<<std::endl;
     SArray<Key> skeys(keys);
+    std::cout<<"main==size="<<skeys.size()<<std::endl;
+    std::cout<<"main==capacity="<<skeys.capacity()<<std::endl;
+    std::cout<<"main==data="<<skeys.data()<<std::endl;
+    std::cout<<"main==back="<<skeys.back()<<std::endl;
+    std::cout<<"main==front="<<skeys.front()<<std::endl;
     std::cout<<"main======end"<<std::endl;
 
     std::shared_ptr<Key> ptr;
