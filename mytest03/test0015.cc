@@ -50,6 +50,21 @@ class SArray {
     }
   }
 
+   template <typename W>
+  explicit SArray(const SArray<W>& arr) { 
+    std::cout<<"this is copy function==="<<std::endl;
+    *this = arr; }
+
+    SArray<V> segment(size_t begin, size_t end) const {
+      std::cout<<"segment function=begin=="<<std::endl;
+    SArray<V> ret;
+    std::cout<<"segment function=begin111=="<<std::endl;
+    ret.ptr_ = std::shared_ptr<V>(ptr_, data() + begin);
+    ret.size_ = end - begin;
+    ret.capacity_ = end - begin;
+    return ret;
+  }
+
   inline V* data() const { return ptr_.get(); }
   inline V back() const {  return data()[size_-1]; }
   inline V front() const { return data()[0]; }
@@ -61,6 +76,12 @@ private:
   size_t capacity_ = 0;
   std::shared_ptr<V> ptr_;
 };
+
+template <typename W>
+SArray<W> fun(){
+  SArray<W> qq;
+  return qq;
+}
 
 int main(){
   using Key = uint64_t;
@@ -112,5 +133,9 @@ int main(){
       std::cout<<"main======new_data=="<<*(new_data+8)<<std::endl;
       memcpy(new_data, ptr.get(), size_*sizeof(Key));
       ptr.reset(new_data, [](Key* data){ delete [] data; });
+       SArray<Key> res=skeys.segment(2,4);
+         std::cout<<"main==res01="<<std::endl;
+       SArray<Key> res01=fun<Key>();
+    
     return 0;
 }
