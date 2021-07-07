@@ -66,10 +66,17 @@ class SArray {
   }
 
   inline V* data() const { return ptr_.get(); }
+    // inline V* begin() { return data(); }
+  inline const V* begin() const { return data(); }
+  // inline V* end() { return data() + size(); }
+  inline const V* end() const { return data() + size(); }
   inline V back() const {  return data()[size_-1]; }
   inline V front() const { return data()[0]; }
   inline size_t size() const { return size_; }
   inline size_t capacity() const { return capacity_; }
+  inline V& operator[] (int i) { 
+    std::cout<<"===operator[]==="<<std::endl;
+    return data()[i]; }
 
 private:
   size_t size_ = 0;
@@ -96,6 +103,10 @@ int main(){
 //    std::cout<<"main==="<<*(keys+1)<<std::endl;
     std::cout<<"main======begin"<<std::endl;
     SArray<Key> skeys(keys);
+    for(auto i:skeys){ std::cout<<"===i==="<<i<<std::endl;}
+    std::cout<<"===skeys[0]==="<<skeys[0]<<std::endl;
+    std::cout<<"===skeys[1]==="<<skeys[1]<<std::endl;
+    std::cout<<"===skeys[2]==="<<skeys[2]<<std::endl;
     std::cout<<"main==size="<<skeys.size()<<std::endl;
     std::cout<<"main==capacity="<<skeys.capacity()<<std::endl;
     std::cout<<"main==data="<<skeys.data()<<std::endl;
